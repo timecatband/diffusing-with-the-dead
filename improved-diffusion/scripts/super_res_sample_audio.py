@@ -80,6 +80,7 @@ def load_data_for_worker(base_samples, batch_size, class_cond):
             label_arr = obj["arr_1"]
     rank = dist.get_rank()
     num_ranks = dist.get_world_size()
+    print("Loaded base buffer: " + str(image_arr.shape))
     buffer = []
     label_buffer = []
     while True:
