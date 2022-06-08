@@ -96,11 +96,11 @@ def create_model(
     use_scale_shift_norm,
     dropout,
 ):
-    if image_size == 256:
+    if image_size == 256*256:
         channel_mult = (1, 1, 2, 2, 4, 4)
-    elif image_size == 64:
+    elif image_size == 64*64:
         channel_mult = (1, 2, 3, 4)
-    elif image_size == 32:
+    elif image_size == 32*32:
         channel_mult = (1, 2, 2, 2)
     else:
         raise ValueError(f"unsupported image size: {image_size}")
