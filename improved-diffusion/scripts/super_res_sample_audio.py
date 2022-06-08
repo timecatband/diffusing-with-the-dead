@@ -46,7 +46,7 @@ def main():
         model_kwargs = {k: v.to(dist_util.dev()) for k, v in model_kwargs.items()}
         sample = diffusion.p_sample_loop(
             model,
-            (args.batch_size, 3, args.large_size, args.large_size),
+            (args.batch_size, 2, args.large_size, args.large_size),
             clip_denoised=args.clip_denoised,
             model_kwargs=model_kwargs,
         )
