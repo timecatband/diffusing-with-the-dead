@@ -5,7 +5,7 @@ import os
 
 def split_file(name):
     myaudio = AudioSegment.from_file(name , "wav") 
-    chunk_length_ms = 1487.7639046538025*8*4 # pydub calculates in millisec
+    chunk_length_ms = 1487.7639046538025*4*4 # pydub calculates in millisec
     chunks = make_chunks(myaudio, chunk_length_ms) #Make chunks of one sec
 
     #Export all of the individual chunks as wav files
