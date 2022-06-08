@@ -535,6 +535,7 @@ class SuperResModel(UNetModel):
 
     def forward(self, x, timesteps, low_res=None, **kwargs):
         _, _, new_length = x.shape
+        print("Forward shape: " + str(low_res.shape))
         upsampled = F.interpolate(low_res, (new_length), mode="linear")
         x = th.cat([x, upsampled], dim=1)
         return super().forward(x, timesteps, **kwargs)
