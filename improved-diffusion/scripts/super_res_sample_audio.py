@@ -90,16 +90,16 @@ def load_data_for_worker(base_samples, batch_size, class_cond):
              buffer.append(image_arr[i])
 #            if class_cond:
 #                label_buffer.append(label_arr[i])
-            if len(buffer) == batch_size:
-                batch = th.from_numpy(np.stack(buffer)).float()
-                batch = batch / 127.5 - 1.0
-                batch = batch.permute(0, 3, 1, 2)
-                res = dict(low_res=batch)
-                if class_cond:
-                    res["y"] = th.from_numpy(np.stack(label_buffer))
-#                res = dict(low_res=torch.from_numpy(image_arr))
-                yield res
-                buffer, label_buffer = [], []
+         if len(buffer) == batch_size:
+             batch = th.from_numpy(np.stack(buffer)).float()
+             batch = batch / 127.5 - 1.0
+             batch = batch.permute(0, 3, 1, 2)
+             res = dict(low_res=batch)
+             if class_cond:
+                 res["y"] = th.from_numpy(np.stack(label_buffer))
+             res = dict(low_res=torch.from_numpy(image_arr))
+             yield res
+             buffer, label_buffer = [], []
 
 
 def create_argparser():
