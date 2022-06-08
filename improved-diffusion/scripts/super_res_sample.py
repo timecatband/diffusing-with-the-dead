@@ -43,7 +43,7 @@ def main():
     all_images = []
     while len(all_images) * args.batch_size < args.num_samples:
         model_kwargs = next(data)
-        print("low res: "  + str(model_kwargs["low_res"].shape))
+        logger.log("low res: "  + str(model_kwargs["low_res"].shape))
         model_kwargs = {k: v.to(dist_util.dev()) for k, v in model_kwargs.items()}
         sample = diffusion.p_sample_loop(
             model,
