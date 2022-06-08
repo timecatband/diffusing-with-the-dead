@@ -96,7 +96,7 @@ def load_data_for_worker(base_samples, batch_size, class_cond):
 #                res = dict(low_res=batch)
 #                if class_cond:
 #                    res["y"] = th.from_numpy(np.stack(label_buffer))
-                res = dict(low_res=image_arr)
+                res = dict(low_res=torch.from_numpy(image_arr))
                 yield res
                 buffer, label_buffer = [], []
 
