@@ -61,4 +61,5 @@ class AudioDataset(Dataset):
     def __getitem__(self, idx):
         path = self.local_images[idx]
         waveform, sample_rate = torchaudio.load(path)
+        waveform = torch.narrow(waveform, 1, 0, 65536)
         return waveform, {}
