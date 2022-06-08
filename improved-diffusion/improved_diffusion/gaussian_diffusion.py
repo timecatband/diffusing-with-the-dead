@@ -738,6 +738,9 @@ class GaussianDiffusion:
                 ModelMeanType.START_X: x_start,
                 ModelMeanType.EPSILON: noise,
             }[self.model_mean_type]
+            print("model_output.shape: " + str(model_output.shape))
+            print("target: " + str(target.shape))
+            print("x_start: " + str(x_start.shape))
             assert model_output.shape == target.shape == x_start.shape
             terms["mse"] = mean_flat((target - model_output) ** 2)
             if "vb" in terms:
