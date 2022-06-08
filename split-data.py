@@ -11,7 +11,7 @@ def split_file(name):
     #Export all of the individual chunks as wav files
 
     for i, chunk in enumerate(chunks):
-        altered_chunk = chunk._spawn(sound.raw_data, overrides={
+        altered_chunk = chunk._spawn(chunk.raw_data, overrides={
            "frame_rate": int(chunk.frame_rate * 4)
         })
         altered_chunk.set_frame_rate(chunk.frame_rate)
