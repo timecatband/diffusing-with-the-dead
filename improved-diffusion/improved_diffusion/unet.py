@@ -6,7 +6,7 @@ import numpy as np
 import torch as th
 import torch.nn as nn
 import torch.nn.functional as F
-import tochaudio.functional as FA
+import torchaudio.functional as FA
 
 from .fp16_util import convert_module_to_f16, convert_module_to_f32
 from .nn import (
