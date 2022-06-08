@@ -62,4 +62,5 @@ class AudioDataset(Dataset):
         path = self.local_images[idx]
         waveform, sample_rate = torchaudio.load(path)
         waveform = torch.narrow(waveform, 1, 0, 65536)
+        print("Shape: " + str(waveform.shape))
         return waveform, {}
