@@ -87,7 +87,7 @@ def load_data_for_worker(base_samples, batch_size, class_cond):
     label_buffer = []
     while True:
         for i in range(rank, len(image_arr), num_ranks):
-             buffer.append(image_arr[i])
+             buffer.append(image_arr)
 #            if class_cond:
 #                label_buffer.append(label_arr[i])
              if len(buffer) == batch_size:
