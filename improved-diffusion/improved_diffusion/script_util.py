@@ -110,7 +110,7 @@ def create_model(
         attention_ds.append(image_size // int(res))
 
     return UNetModel(
-        in_channels=3,
+        in_channels=2,
         model_channels=num_channels,
         out_channels=(3 if not learn_sigma else 6),
         num_res_blocks=num_res_blocks,
@@ -122,6 +122,7 @@ def create_model(
         num_heads=num_heads,
         num_heads_upsample=num_heads_upsample,
         use_scale_shift_norm=use_scale_shift_norm,
+        dim=1
     )
 
 
