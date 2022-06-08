@@ -538,7 +538,7 @@ class SuperResModel(UNetModel):
         _, _, new_length = x.shape
         print("Forward shape: " + str(low_res.shape))
         print("X shape: " + str(x.shape))
-        upsampled = FA.resample(low_res, 11000, 22000)
+        upsampled = FA.resample(low_res, 11000, 44000)
         print("Upsampled: " + str(upsampled.shape))
         x = th.cat([x, upsampled], dim=1)
         return super().forward(x, timesteps, **kwargs)
