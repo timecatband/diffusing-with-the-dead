@@ -122,7 +122,7 @@ def create_model(
         num_heads=num_heads,
         num_heads_upsample=num_heads_upsample,
         use_scale_shift_norm=use_scale_shift_norm,
-        dim=1
+        dims=1
     )
 
 
