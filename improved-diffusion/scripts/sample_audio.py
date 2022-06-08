@@ -54,7 +54,6 @@ def main():
             (args.batch_size, 2, args.image_size),
             clip_denoised=args.clip_denoised,
             model_kwargs=model_kwargs,
-            skip_steps=10
         )
 #        sample = ((sample + 1) * 127.5).clamp(0, 255).to(th.uint8)
 #        sample = sample.permute(0, 2, 3, 1)
