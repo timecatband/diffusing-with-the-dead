@@ -6,6 +6,7 @@ import numpy as np
 import torch as th
 import torch.nn as nn
 import torch.nn.functional as F
+import tochaudio.functional as FA
 
 from .fp16_util import convert_module_to_f16, convert_module_to_f32
 from .nn import (
@@ -536,7 +537,7 @@ class SuperResModel(UNetModel):
     def forward(self, x, timesteps, low_res=None, **kwargs):
         _, _, new_length = x.shape
         print("Forward shape: " + str(low_res.shape))
-        upsampled = F.resample(low_res, 11000, 22000)
+        upsampled = FA.resample(low_res, 11000, 22000)
         x = th.cat([x, upsampled], dim=1)
         return super().forward(x, timesteps, **kwargs)
 
