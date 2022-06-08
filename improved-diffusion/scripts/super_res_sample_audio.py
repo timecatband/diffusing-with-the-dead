@@ -94,7 +94,7 @@ def load_data_for_worker(base_samples, batch_size, class_cond):
                 batch = th.from_numpy(np.stack(buffer)).float()
          #   batch = batch / 127.5 - 1.0
                 print("Batch shape: " + str(batch.shape))
-                batch = batch.permute(0, 3, 1, 2)
+#                batch = batch.permute(0, 3, 1, 2)
                 res = dict(low_res=batch)
                 if class_cond:
                     res["y"] = th.from_numpy(np.stack(label_buffer))
