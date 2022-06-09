@@ -35,8 +35,8 @@ class DDPM(nn.Module):
         eps = torch.randn_like(x)  # eps ~ N(0, 1)
 
         x_t = (
-            self.sqrtab[_ts, None, None, None] * x
-            + self.sqrtmab[_ts, None, None, None] * eps
+            self.sqrtab[_ts, None, None] * x
+            + self.sqrtmab[_ts, None, None] * eps
         )  # This is the x_t, which is sqrt(alphabar) x_0 + sqrt(1-alphabar) * eps
         # We should predict the "error term" from this x_t. Loss is what we return.
 
