@@ -33,8 +33,8 @@ class DDPM(nn.Module):
         _ts = torch.randint(1, self.n_T + 1, (x.shape[0],)).to(x.device)
         # t ~ Uniform(0, n_T)
         eps = torch.randn_like(x)  # eps ~ N(0, 1)
-        print("eps norm: " + str(eps.norm(pow=2)))
-        print("x norm: " + str(x.norm(pow=2)))
+        print("eps norm: " + str(torch.norm(eps, pow=2)))
+        print("x norm: " + str(torch.norm(x,pow=2)))
 
         x_t = (
             self.sqrtab[_ts, None, None] * x
