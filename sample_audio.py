@@ -49,6 +49,7 @@ def train_celeba(
     with torch.no_grad():
         xh = ddpm.sample(1, (2, 4096), device)
         xh[0]=xh[0].clamp(0,1)
+        xh = xh.to("cpu")
         print(xh[0].shape)
         torchaudio.save("/content/ddpm_sample_out"+".wav", xh[0], 22025)
 
