@@ -12,7 +12,7 @@ from torchvision.utils import save_image, make_grid
 
 from mindiffusion.unet import NaiveUnet
 from mindiffusion.ddpm import DDPM
-from minduffision.dataset import load_data
+from mindiffusion.dataset import load_data
 
 from dotenv import load_dotenv
 
