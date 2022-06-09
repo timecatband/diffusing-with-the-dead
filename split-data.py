@@ -2,6 +2,7 @@ from pydub import AudioSegment
 from pydub.utils import make_chunks
 
 import os
+import sys
 
 def split_file(name):
     myaudio = AudioSegment.from_file(name , "wav") 
