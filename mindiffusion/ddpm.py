@@ -35,7 +35,6 @@ class DDPM(nn.Module):
         eps = torch.randn_like(x)  # eps ~ N(0, 1)
 #        print("eps norm: " + str(torch.norm(eps, p=2)))
 # racarr ?
-        eps = eps / 20
 #        print("x norm: " + str(torch.norm(x,p=2)))
 
         x_t = (
