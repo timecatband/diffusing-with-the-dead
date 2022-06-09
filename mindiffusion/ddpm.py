@@ -44,7 +44,7 @@ class DDPM(nn.Module):
         )  # This is the x_t, which is sqrt(alphabar) x_0 + sqrt(1-alphabar) * eps
         # We should predict the "error term" from this x_t. Loss is what we return.
 
-        return self.criterion(eps, self.eps_model(x_t, _ts / self.n_T))
+        return self.criterion(x, self.eps_model(x_t, _ts / self.n_T))
 
     def sample(self, n_sample: int, size, device) -> torch.Tensor:
 
@@ -54,15 +54,15 @@ class DDPM(nn.Module):
         # This samples accordingly to Algorithm 2. It is exactly the same logic.
         for i in range(self.n_T, 0, -1):
             z = torch.randn(n_sample, *size).to(device) if i > 1 else 0
-            eps = self.eps_model(
+            x_i = self.eps_model(
                 x_i, torch.tensor(i / self.n_T).to(device).repeat(n_sample, 1)
             )
-            x_i = (
-                self.oneover_sqrta[i] * (x_i - eps * self.mab_over_sqrtmab[i])
-                + self.sqrt_beta_t[i] * z
-            )
+   #         x_i = (
+    #            self.oneover_sqrta[i] * (x_i - eps * self.mab_over_sqrtmab[i])
+     #           + self.sqrt_beta_t[i] * z
+      #      )
             #racarr does this make sense?
-            x_i = x_i.clamp(0,1)
+       #     x_i = x_i.clamp(0,1)
 
         return x_i
 
