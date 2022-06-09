@@ -54,6 +54,7 @@ def train_celeba(
         for x, _ in pbar:
             optim.zero_grad()
             x = x.to(device)
+            print("shape: " + str(x.shape))
             loss = ddpm(x)
             loss.backward()
             if loss_ema is None:
