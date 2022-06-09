@@ -34,6 +34,7 @@ class DDPM(nn.Module):
         # t ~ Uniform(0, n_T)
         eps = torch.randn_like(x)  # eps ~ N(0, 1)
 #        print("eps norm: " + str(torch.norm(eps, p=2)))
+# racarr ?
         eps = eps / 20
 #        print("x norm: " + str(torch.norm(x,p=2)))
 
@@ -48,6 +49,8 @@ class DDPM(nn.Module):
     def sample(self, n_sample: int, size, device) -> torch.Tensor:
 
         x_i = torch.randn(n_sample, *size).to(device)  # x_T ~ N(0, 1)
+        # racarr ? 
+        x_i = x_i / 20
         # This samples accordingly to Algorithm 2. It is exactly the same logic.
         for i in range(self.n_T, 0, -1):
             z = torch.randn(n_sample, *size).to(device) if i > 1 else 0
