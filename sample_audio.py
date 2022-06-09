@@ -13,6 +13,7 @@ from torchvision.utils import save_image, make_grid
 from mindiffusion.unet import NaiveUnet
 from mindiffusion.ddpm import DDPM
 from mindiffusion.dataset import load_data
+import torchaudio
 
 #from dotenv import load_dotenv
 
