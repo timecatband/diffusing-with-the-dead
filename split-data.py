@@ -25,7 +25,7 @@ for track in os.listdir("data/wav"):
         split_file("data/wav/"+track)
 
 os.system("mkdir data/wav/chunks")
-os.system("mv data/wav/*chunk*wav data/wav/chunks")
+os.system("mv *chunk*wav data/wav/chunks")
 for track in os.listdir("data/wav/chunks"):
   path = "data/wav/chunks/" + track
   if os.path.getsize(path) < 26504:

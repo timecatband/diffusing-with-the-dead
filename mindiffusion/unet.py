@@ -51,7 +51,7 @@ class UnetUp(nn.Module):
     def __init__(self, in_channels: int, out_channels: int) -> None:
         super(UnetUp, self).__init__()
         layers = [
-            nn.ConvTranspose2d(in_channels, out_channels, 2, 2),
+            nn.ConvTranspose1d(in_channels, out_channels, 2, 2),
             Conv3(out_channels, out_channels),
             Conv3(out_channels, out_channels),
         ]
@@ -92,7 +92,7 @@ class NaiveUnet(nn.Module):
         self.down2 = UnetDown(n_feat, 2 * n_feat)
         self.down3 = UnetDown(2 * n_feat, 2 * n_feat)
 
-        self.to_vec = nn.Sequential(nn.AvgPool2d(4), nn.ReLU())
+        self.to_vec = nn.Sequential(nn.AvgPool1d(4), nn.ReLU())
 
         self.timeembed = TimeSiren(2 * n_feat)
 
