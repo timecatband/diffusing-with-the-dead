@@ -51,10 +51,14 @@ def train_celeba(
 
         pbar = tqdm(dataloader)
         loss_ema = None
+        j = 0
         for x, _ in pbar:
             optim.zero_grad()
             x = x.to(device)
             print("shape: " + str(x.shape))
+            j++
+            if j%20 == 0:
+                torch.save(ddpm.state_dict(), f"./ddpm_celeba.pth")
             loss = ddpm(x)
             loss.backward()
             if loss_ema is None:
@@ -66,13 +70,13 @@ def train_celeba(
 
         ddpm.eval()
         with torch.no_grad():
-            xh = ddpm.sample(8, (2, 128, 128), device)
-            xset = torch.cat([xh, x[:8]], dim=0)
-            grid = make_grid(xset, normalize=True, value_range=(-1, 1), nrow=4)
-            save_image(grid, f"./contents/ddpm_sample_celeba{i:03d}.png")
+            xh = ddpm.sample(1, (2, 64, 64), device)
+            xh[0]=xh[0].clamp(0,1)
+            print(xh[0].shape)
+            torchaudio.save("/content/ddpm_sample_out"+".wav", xh[0], 22025)
 
             # save model
-            torch.save(ddpm.state_dict(), f"./ddpm_celeba.pth")
+
 
 
 if __name__ == "__main__":
