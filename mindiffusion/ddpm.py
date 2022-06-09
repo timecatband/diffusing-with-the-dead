@@ -45,7 +45,6 @@ class DDPM(nn.Module):
     def sample(self, n_sample: int, size, device) -> torch.Tensor:
 
         x_i = torch.randn(n_sample, *size).to(device)  # x_T ~ N(0, 1)
-
         # This samples accordingly to Algorithm 2. It is exactly the same logic.
         for i in range(self.n_T, 0, -1):
             z = torch.randn(n_sample, *size).to(device) if i > 1 else 0
@@ -56,6 +55,7 @@ class DDPM(nn.Module):
                 self.oneover_sqrta[i] * (x_i - eps * self.mab_over_sqrtmab[i])
                 + self.sqrt_beta_t[i] * z
             )
+            x_i = x_i.clamp(0,1)
 
         return x_i
 
