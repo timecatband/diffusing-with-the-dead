@@ -14,10 +14,10 @@ from mindiffusion.unet import NaiveUnet
 from mindiffusion.ddpm import DDPM
 from mindiffusion.dataset import load_data
 
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 
-load_dotenv("./.env")
-CELEBA_PATH = os.getenv("CELEBA_PATH")
+#load_dotenv("./.env")
+#CELEBA_PATH = os.getenv("CELEBA_PATH")
 
 
 def train_celeba(
