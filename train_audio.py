@@ -56,7 +56,7 @@ def train_celeba(
             optim.zero_grad()
             x = x.to(device)
             print("shape: " + str(x.shape))
-            j++
+            j=j+1
             if j%20 == 0:
                 torch.save(ddpm.state_dict(), f"./ddpm_celeba.pth")
             loss = ddpm(x)
