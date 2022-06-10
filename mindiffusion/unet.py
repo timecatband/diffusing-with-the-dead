@@ -4,6 +4,7 @@ Simple Unet Structure.
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from wavenet_modules import *
 
 
 class Conv3(nn.Module):
