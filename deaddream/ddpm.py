@@ -24,7 +24,7 @@ class DDPM(nn.Module):
 
         self.n_T = n_T
         self.criterion = criterion
-        self.spectrogram = Spectrogram(100, pow=None).to("cuda:0")
+        self.spectrogram = Spectrogram(100, power=None).to("cuda:0")
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """
