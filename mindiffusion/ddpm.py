@@ -57,7 +57,7 @@ class DDPM(nn.Module):
                 x_i, torch.tensor(i / self.n_T).to(device).repeat(n_sample, 1)
             )
             # racarr
-            x_i = x_i.clamp(0,1)
+ #           x_i = x_i.clamp(0,1)
    #         x_i = (
     #            self.oneover_sqrta[i] * (x_i - eps * self.mab_over_sqrtmab[i])
      #           + self.sqrt_beta_t[i] * z
