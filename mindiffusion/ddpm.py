@@ -49,7 +49,7 @@ class DDPM(nn.Module):
 
         x_i = torch.randn(n_sample, *size).to(device)  # x_T ~ N(0, 1)
         # racarr ? 
-        x_i = x_i / 20
+#        x_i = x_i / 20
         # This samples accordingly to Algorithm 2. It is exactly the same logic.
         for i in range(self.n_T, 0, -1):
             z = torch.randn(n_sample, *size).to(device) if i > 1 else 0
