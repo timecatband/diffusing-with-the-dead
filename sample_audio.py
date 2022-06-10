@@ -39,12 +39,10 @@ def train_celeba(
 #        ]
 #    )
 
-    dataloader = load_data(data_dir="/content/data/wav/chunks", batch_size=32, audio_size=4096)
+#    dataloader = load_data(data_dir="/content/data/wav/chunks", batch_size=32, audio_size=4096)
 
 
     #dataloader = DataLoader(dataset, batch_size=32, shuffle=True, num_workers=20)
-    optim = torch.optim.Adam(ddpm.parameters(), lr=2e-5)
-
     ddpm.eval()
     with torch.no_grad():
         xh = ddpm.sample(1, (2, 4096), device)
