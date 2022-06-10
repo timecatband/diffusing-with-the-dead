@@ -11,9 +11,8 @@ from torchvision.datasets import ImageFolder
 from torchvision import transforms
 from torchvision.utils import save_image, make_grid
 
-from mindiffusion.unet import NaiveUnet
-from mindiffusion.ddpm import DDPM
-from mindiffusion.dataset import load_data
+from deaddiffusion.ddpm import DDPM
+from deaddiffusion.dataset import load_data
 
 from deaddiffusion.vqvae import VQVAE
 
