@@ -13,6 +13,7 @@ from torchvision.utils import save_image, make_grid
 
 from deaddream.ddpm import DDPM
 from deaddream.dataset import load_data
+from deaddream.audio_utilities import reconstruct_signal_griffin_lim
 
 from deaddream.vqvae import VQVAE
 
@@ -79,7 +80,12 @@ def train_dead(
             xh[0]=xh[0].clamp(0,1)
             print(xh[0].shape)
             xh = xh.to("cpu")
-            torchaudio.save("/content/ddpm_sample_out"+".wav", xh[0], 22025)
+            lol = torch.narrow(xh[0], 2, 0, 51)
+            wav = reconstruct_signal_griffin_lim(lol[0], 100, 80, 100)
+            wav = torch.from_numpy(wav)
+            wav = wav.unsqueeze(0).type(torch.float32)
+            print("wav shape: " + str(wav.dtype))
+            torchaudio.save("/content/ddpm_sample_out"+".wav", wav, 44050)
 
             # save model
 
