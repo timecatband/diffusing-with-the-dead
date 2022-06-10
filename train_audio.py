@@ -75,7 +75,7 @@ def train_dead(
 
         ddpm.eval()
         with torch.no_grad():
-            xh = ddpm.sample(1, (2, 4096), device)
+            xh = ddpm.sample(1, (2, 50, 80), device)
             xh[0]=xh[0].clamp(0,1)
             print(xh[0].shape)
             xh = xh.to("cpu")

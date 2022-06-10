@@ -42,7 +42,12 @@ class DDPM(nn.Module):
         )  # This is the x_t, which is sqrt(alphabar) x_0 + sqrt(1-alphabar) * eps
         # We should predict the "error term" from this x_t. Loss is what we return.
         spec = self.spectrogram(x_t)
-        return self.criterion(eps, self.eps_model(spec)[0])
+        print("x_t shape" + str(x_t.shape))
+        print("spec shape " + str(spec.shape))
+        x_spec = self.spectrogram(x)
+        x_spec = x_spec.narrow(2, 0, 48)
+        x_spec = x_spec.narrow(3, 0, 80)
+        return self.criterion(x_spec, self.eps_model(spec)[0])
                                                   #, _ts / self.n_T))
 
     def sample(self, n_sample: int, size, device) -> torch.Tensor:
@@ -52,13 +57,13 @@ class DDPM(nn.Module):
         # This samples accordingly to Algorithm 2. It is exactly the same logic.
         for i in range(self.n_T, 0, -1):
             z = torch.randn(n_sample, *size).to(device) if i > 1 else 0
-            eps = self.eps_model(
-                x_i, torch.tensor(i / self.n_T).to(device).repeat(n_sample, 1)
-            )
-            x_i = (
-                self.oneover_sqrta[i] * (x_i - eps * self.mab_over_sqrtmab[i])
-                + self.sqrt_beta_t[i] * z
-            )
+            x_i = self.eps_model(
+                x_i#, torch.tensor(i / self.n_T).to(device).repeat(n_sample, 1)
+            )[0]
+          #  x_i = (
+           ##     self.oneover_sqrta[i] * (x_i - eps * self.mab_over_sqrtmab[i])
+             #   + self.sqrt_beta_t[i] * z
+            #)
 
         return x_i
 
