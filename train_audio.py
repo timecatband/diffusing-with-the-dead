@@ -27,7 +27,7 @@ def train_celeba(
     n_epoch: int = 100, device: str = "cuda:0", load_pth: Optional[str] = None
 ) -> None:
 
-    ddpm = DDPM(eps_model=WaveNetModel(), betas=(1e-4, 0.02), n_T=1000)
+    ddpm = DDPM(eps_model=NaiveUnet(2, 2, n_feat=128), betas=(1e-4, 0.02), n_T=1000)
     
 
     if load_pth is not None:
