@@ -116,7 +116,7 @@ class NaiveUnet(nn.Module):
         down3 = self.down3(down2)
 
         thro = self.to_vec(down3)
-        temb = self.timeembed(t).view(-1, self.n_feat * 2, 1, 1)
+        temb = self.timeembed(t).view(-1, self.n_feat * 2, 1)
 
         thro = self.up0(thro + temb)
 
