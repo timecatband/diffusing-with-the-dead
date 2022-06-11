@@ -4,7 +4,7 @@ import numpy as np
 from torch.utils.data import DataLoader, Dataset
 import torchaudio
 import torch
-from tochaudio.transforms import Spectrogram
+from torchaudio.transforms import Spectrogram
 
 
 def load_data(
