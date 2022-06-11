@@ -48,6 +48,8 @@ def _list_wav_files_recursively(data_dir):
             results.extend(_list_wav_files_recursively(full_path))
         if os.path.getsize(full_path) > 13250 * 10:
             results.append(full_path)
+        else:
+            print("Skipping file: " + full_path)
 
     return results
 
