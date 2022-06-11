@@ -64,9 +64,9 @@ def main():
             clip_denoised=args.clip_denoised,
             model_kwargs=model_kwargs,
         )
-        sample = ((sample + 1) * 127.5).clamp(0, 255).to(th.uint8)
-        sample = sample.permute(0, 2, 3, 1)
-        sample = sample.contiguous()
+#        sample = ((sample + 1) * 127.5).clamp(0, 255).to(th.uint8)
+#        sample = sample.permute(0, 2, 3, 1)
+#        sample = sample.contiguous()
 
         gathered_samples = [th.zeros_like(sample) for _ in range(dist.get_world_size())]
         dist.all_gather(gathered_samples, sample)  # gather not supported with NCCL
@@ -99,7 +99,7 @@ def create_argparser():
     defaults = dict(
         clip_denoised=True,
         num_samples=1,
-        batch_size=16,
+        batch_size=1,
         use_ddim=False,
         model_path="",
     )
