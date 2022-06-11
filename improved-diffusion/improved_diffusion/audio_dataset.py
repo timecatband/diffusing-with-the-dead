@@ -46,7 +46,7 @@ def _list_wav_files_recursively(data_dir):
         ext = entry.split(".")[-1]       
         if bf.isdir(full_path):
             results.extend(_list_wav_files_recursively(full_path))
-        if os.path.getsize(full_path) > 13250:
+        if os.path.getsize(full_path) > 13250 * 10:
             results.append(full_path)
 
     return results

@@ -6,7 +6,7 @@ import sys
 
 def split_file(name):
     myaudio = AudioSegment.from_file(name , "wav") 
-    chunk_length_ms = 300 # pydub calculates in millisec
+    chunk_length_ms = 300*10 # pydub calculates in millisec
     chunks = make_chunks(myaudio, chunk_length_ms) #Make chunks of one sec
 
     #Export all of the individual chunks as wav files
@@ -28,6 +28,6 @@ os.system("mkdir data/wav/chunks")
 os.system("mv *chunk*wav data/wav/chunks")
 for track in os.listdir("data/wav/chunks"):
   path = "data/wav/chunks/" + track
-  if os.path.getsize(path) < 13274:
+  if os.path.getsize(path) < 13274*10:
       print("Deleting bad sized chunk" + str(os.path.getsize(path)))
       os.system("rm " + path)
