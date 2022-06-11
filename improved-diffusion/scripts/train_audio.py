@@ -33,7 +33,7 @@ def main():
     data = load_data(
         data_dir=args.data_dir,
         batch_size=args.batch_size,
-        image_size=args.image_size,
+        audio_size=args.image_size,
         class_cond=args.class_cond,
     )
 
