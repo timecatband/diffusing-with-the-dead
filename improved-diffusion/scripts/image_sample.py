@@ -19,6 +19,15 @@ from improved_diffusion.script_util import (
     args_to_dict,
 )
 
+import sys
+sys.path.append("/content/diffusing-with-the-dead")
+import torchaudio
+import deaddream
+from deaddream.audio_utilities import reconstruct_signal_griffin_lim
+
+import torch
+import torchaudio.transforms as T
+
 
 def main():
     args = create_argparser().parse_args()
@@ -76,13 +85,11 @@ def main():
         label_arr = np.concatenate(all_labels, axis=0)
         label_arr = label_arr[: args.num_samples]
     if dist.get_rank() == 0:
-        shape_str = "x".join([str(x) for x in arr.shape])
-        out_path = os.path.join(logger.get_dir(), f"samples_{shape_str}.npz")
-        logger.log(f"saving to {out_path}")
-        if args.class_cond:
-            np.savez(out_path, arr, label_arr)
-        else:
-            np.savez(out_path, arr)
+        spec = arr[0]
+        r = reconstruct_signal_griffin_lim(spec(waveform)[0].transpose(1,0), 128,64, 200)
+        r = torch.from_numpy(r).unsqueeze(0).type(torch.float32)
+        torchaudio.save("/content/sample.wav", r, 22050)
+        logger.log(f"saving to /content/sample.wav")
 
     dist.barrier()
     logger.log("sampling complete")
