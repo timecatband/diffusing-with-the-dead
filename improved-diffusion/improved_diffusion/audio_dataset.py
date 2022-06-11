@@ -35,7 +35,8 @@ def load_data(
         loader = DataLoader(
             dataset, batch_size=batch_size, shuffle=True, num_workers=1, drop_last=True
         )
-    return loader
+    while True:
+        yield from loader
 
 
 def _list_wav_files_recursively(data_dir):
@@ -45,7 +46,7 @@ def _list_wav_files_recursively(data_dir):
         ext = entry.split(".")[-1]       
         if bf.isdir(full_path):
             results.extend(_list_wav_files_recursively(full_path))
-        if os.path.getsize(full_path) > 26500:
+        if os.path.getsize(full_path) > 13250:
             results.append(full_path)
 
     return results
@@ -66,4 +67,4 @@ class AudioDataset(Dataset):
         waveform = torch.narrow(waveform, 1, 0, 4096)
 #        torchaudio.save("/content/lol.wav", waveform, 22025)
 
-        return spec(waveform), ()
+        return self.spec(waveform), ()
