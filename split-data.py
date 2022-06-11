@@ -28,6 +28,6 @@ os.system("mkdir data/wav/chunks")
 os.system("mv *chunk*wav data/wav/chunks")
 for track in os.listdir("data/wav/chunks"):
   path = "data/wav/chunks/" + track
-  if os.path.getsize(path) < 26504:
+  if os.path.getsize(path) < 13274:
       print("Deleting bad sized chunk" + str(os.path.getsize(path)))
       os.system("rm " + path)
