@@ -27,6 +27,7 @@ from deaddream.audio_utilities import reconstruct_signal_griffin_lim
 
 import torch
 import torchaudio.transforms as T
+import torch.nn.functional as F
 
 
 def main():
@@ -86,6 +87,7 @@ def main():
         label_arr = label_arr[: args.num_samples]
     if dist.get_rank() == 0:
         spec = arr[0]
+        spec = F.pad(spec, 0, 0, 0, 1)
         r = reconstruct_signal_griffin_lim(spec[0].transpose(1,0), 128,64, 200)
         r = torch.from_numpy(r).unsqueeze(0).type(torch.float32)
         torchaudio.save("/content/sample.wav", r, 22050)
