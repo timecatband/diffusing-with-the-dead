@@ -5,6 +5,7 @@ from torch.utils.data import DataLoader, Dataset
 import torchaudio
 import torch
 from torchaudio.transforms import Spectrogram
+import torchaudio.functional as F
 
 
 def load_data(
@@ -66,7 +67,8 @@ class AudioDataset(Dataset):
     def __getitem__(self, idx):
         path = self.local_images[idx]
         waveform, sample_rate = torchaudio.load(path)
-        waveform = torch.narrow(waveform, 1, 0, 4096)
+        waveform = torch.narrow(waveform, 1, 0, 4096*10)
+        waveform = F.lowpass_biquad(waveform, 22050, 5000)
 #        torchaudio.save("/content/lol.wav", waveform, 22025)
         spec = self.spec(waveform)
         spec = spec.narrow(1, 0, 64)
