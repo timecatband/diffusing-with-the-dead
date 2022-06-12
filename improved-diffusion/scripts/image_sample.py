@@ -65,6 +65,7 @@ def main():
             clip_denoised=args.clip_denoised,
             model_kwargs=model_kwargs,
         )
+        print("Sample max: " + str(sample.max()))
 #        sample = ((sample + 1) * 127.5).clamp(0, 255).to(th.uint8)
 #        sample = sample.permute(0, 2, 3, 1)
 #        sample = sample.contiguous()
@@ -86,7 +87,7 @@ def main():
         label_arr = np.concatenate(all_labels, axis=0)
         label_arr = label_arr[: args.num_samples]
     if dist.get_rank() == 0:
-        spec = arr[0]
+        spec = arr[0]*256
         spec = F.pad(input=torch.from_numpy(spec), pad=(0, 0, 0, 1), mode='constant', value=0)
         r = reconstruct_signal_griffin_lim(spec[0].transpose(1,0), 128,64, 200)
         r = torch.from_numpy(r).unsqueeze(0).type(torch.float32)
