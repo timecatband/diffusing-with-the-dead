@@ -28,7 +28,20 @@ from deaddream.audio_utilities import reconstruct_signal_griffin_lim
 import torch
 import torchaudio.transforms as T
 import torch.nn.functional as F
+import matplotlib.pyplot as plt
+import librosa
 
+def plot_spectrogram(spec, title=None, ylabel='freq_bin', aspect='auto', xmax=None):
+  fig, axs = plt.subplots(1, 1)
+  axs.set_title(title or 'Spectrogram (db)')
+  axs.set_ylabel(ylabel)
+  axs.set_xlabel('frame')
+  im = axs.imshow(librosa.power_to_db(spec), origin='lower', aspect=aspect)
+  if xmax:
+    axs.set_xlim((0, xmax))
+  fig.colorbar(im, ax=axs)
+  plt.savefig("/content/lol.png")
+)
 
 def main():
     args = create_argparser().parse_args()
@@ -61,7 +74,7 @@ def main():
         )
         sample = sample_fn(
             model,
-            (args.batch_size, 1, args.image_size, args.image_size),
+            (args.batch_size, 2, args.image_size, args.image_size),
             clip_denoised=args.clip_denoised,
             model_kwargs=model_kwargs,
         )
@@ -87,10 +100,14 @@ def main():
         label_arr = np.concatenate(all_labels, axis=0)
         label_arr = label_arr[: args.num_samples]
     if dist.get_rank() == 0:
-        spec = arr[0]*256
-        spec = F.pad(input=torch.from_numpy(spec), pad=(0, 0, 0, 1), mode='constant', value=0)
-        r = reconstruct_signal_griffin_lim(spec[0].transpose(1,0), 128,64, 200)
-        r = torch.from_numpy(r).unsqueeze(0).type(torch.float32)
+         spec = arr[0]
+         spec = spec.permute(1,2,0)
+         spec = torch.view_as_complex(spec).contiguous()
+         plot_spectrogram(spec)
+#        spec = arr[0]*256
+#        spec = F.pad(input=torch.from_numpy(spec), pad=(0, 0, 0, 1), mode='constant', value=0)
+#        r = reconstruct_signal_griffin_lim(spec[0].transpose(1,0), 128,64, 200)
+#        r = torch.from_numpy(r).unsqueeze(0).type(torch.float32)
         torchaudio.save("/content/sample.wav", r, 22050)
         logger.log(f"saving to /content/sample.wav")
 
