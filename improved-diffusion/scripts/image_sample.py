@@ -108,8 +108,8 @@ def main():
 #        spec = F.pad(input=torch.from_numpy(spec), pad=(0, 0, 0, 1), mode='constant', value=0)
 #        r = reconstruct_signal_griffin_lim(spec[0].transpose(1,0), 128,64, 200)
 #        r = torch.from_numpy(r).unsqueeze(0).type(torch.float32)
-        torchaudio.save("/content/sample.wav", r, 22050)
-        logger.log(f"saving to /content/sample.wav")
+ #        torchaudio.save("/content/sample.wav", r, 22050)
+#         logger.log(f"saving to /content/sample.wav")
 
     dist.barrier()
     logger.log("sampling complete")
